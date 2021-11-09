@@ -6,12 +6,12 @@ function s:callback(client, buf, message)
 	let [l:l, l:c] = [1, 1]
 	let l:caps = a:client["capabilities"]["semanticTokensProvider"]
 	call s:buf_close(a:client, a:buf)
+	if empty(a:message["result"]) | return | endif
 	for l:i in range(0, len(a:message["result"]["data"]) - 1, 5)
 		let l:d = a:message["result"]["data"][l:i:l:i + 4]
 		let l:l += l:d[0]
 		let l:c = (l:d[0] == 0 ? l:c : 1) + l:d[1]
-		let l:type = l:caps["legend"]["tokenTypes"][l:d[3]]
-		let l:name = "Lsp_" . l:type
+		let l:name = "Lsp_" . l:caps["legend"]["tokenTypes"][l:d[3]]
 		if empty(prop_type_get(l:name))
 			exec printf("hi default link %s Normal", l:name)
 			call prop_type_add(l:name, { "highlight": l:name })
