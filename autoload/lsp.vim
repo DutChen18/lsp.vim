@@ -15,6 +15,8 @@ function lsp#clangd()
 			\ g:lsp#mods#file#obj,
 			\ g:lsp#mods#auto#obj,
 			\ g:lsp#mods#diag#obj,
+			\ g:lsp#mods#diag_sign#obj,
+			\ g:lsp#mods#diag_msg#obj,
 			\ g:lsp#mods#change#obj,
 			\ g:lsp#mods#sema#obj ]})
 endfunction

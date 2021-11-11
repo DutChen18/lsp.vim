@@ -8,21 +8,14 @@ function s:notify(client, message)
 	if a:message["method"] ==# "textDocument/publishDiagnostics"
 		let l:buf = g:lsp#buf#by_uri(a:message["params"]["uri"])
 		if !has_key(a:client["buffers"], l:buf) | return | endif
-		call sign_unplace("lsp", { "buffer": l:buf })
 		let l:diag = a:message["params"]["diagnostics"]
 		let a:client["buffers"][l:buf]["diagnostics"] = l:diag
-		for l:diag in l:diag
-			let l:severity = l:diag["severity"]
-			let l:sign = s:signs[l:severity - 1]
-			let l:lnum = l:diag["range"]["start"]["line"] + 1
-			call sign_place(0, "lsp", l:sign, l:buf,
-				\ { "lnum": l:lnum, "priority": -l:severity })
-		endfor
+		call lsp#client#call(a:client, "diag", l:buf, l:diag)
 	endif
 endfunction
 
 function s:buf_close(client, buf)
-	call sign_unplace("lsp", { "buffer": a:buf })
+	call g:lsp#client#call(a:client, "diag", a:buf, [])
 endfunction
 
 let g:lsp#mods#diag#obj = {
