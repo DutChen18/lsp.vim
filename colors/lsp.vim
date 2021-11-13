@@ -3,7 +3,7 @@ if exists("syntax_on")
 	syn reset
 endif
 set bg=dark
-let g:colors_name="lsp_simple"
+let g:colors_name="lsp"
 
 function s:hsv2rgb(hsv)
 	let a:hsv[0] = fmod(fmod(a:hsv[0], 1) + 1, 1)
@@ -41,11 +41,11 @@ function s:hi(fg, bg, g)
 	exec printf("hi %s cterm=NONE gui=NONE", a:g)
 endfunction
 
-let s:s = exists("g:lsp_saturation") ? g:lsp_saturation : 0.5
-let s:v = exists("g:lsp_value") ? g:lsp_value : 0.5
+let s:s = exists("g:lsp_saturation") ? g:lsp_saturation : 0.75
+let s:v = exists("g:lsp_value") ? g:lsp_value : 0.75
 
-function s:col(h1, h2)
-	return [a:h1 / 6.0 + a:h2 / 24.0, s:s, s:v]
+function s:col(h)
+	return [(a:h + 0.5) / 6.0, s:s, s:v]
 endfunction
 
 function s:val(v)
@@ -53,6 +53,8 @@ function s:val(v)
 endfunction
 
 call s:hi(s:val(8), s:val(1), "Normal")
+call s:hi(s:val(8), s:val(1), "Operator")
+call s:hi(s:val(8), s:val(1), "Delimiter")
 call s:hi(s:val(8), s:val(1), "Error")
 call s:hi(s:val(8), s:val(1), "Special")
 call s:hi(s:val(4), s:val(2), "LineNr")
@@ -65,34 +67,29 @@ call s:hi(s:val(2), [], "SpecialKey")
 call s:hi([], s:val(2), "ColorColumn")
 call s:hi([], s:val(2), "Visual")
 
-call s:hi(s:col(0, 1), [], "Number")
-call s:hi(s:col(0, 3), [], "Constant")
-call s:hi(s:col(0, 1), [], "SpecialChar")
+call s:hi(s:col(0), [], "Constant")
+call s:hi(s:col(0), [], "SpecialChar")
 
-call s:hi(s:col(1, 1), [], "Function")
-call s:hi(s:col(1, 1), [], "Lsp_function")
-call s:hi(s:col(1, 3), [], "Delimiter")
+call s:hi(s:col(1), [], "Function")
+call s:hi(s:col(1), [], "Lsp_function")
 
-call s:hi(s:col(2, 1), [], "Lsp_type")
-call s:hi(s:col(2, 1), [], "Lsp_class")
-call s:hi(s:col(2, 1), [], "Lsp_enum")
+call s:hi(s:col(2), [], "Lsp_type")
+call s:hi(s:col(2), [], "Lsp_class")
+call s:hi(s:col(2), [], "Lsp_enum")
 
-call s:hi(s:col(3, 1), [], "Identifier")
-call s:hi(s:col(3, 1), [], "Lsp_variable")
-call s:hi(s:col(3, 1), [], "Lsp_parameter")
-call s:hi(s:col(3, 1), [], "Lsp_property")
-call s:hi(s:col(3, 3), [], "Lsp_enumMember")
+call s:hi(s:col(3), [], "Identifier")
+call s:hi(s:col(3), [], "Lsp_variable")
+call s:hi(s:col(3), [], "Lsp_parameter")
+call s:hi(s:col(3), [], "Lsp_property")
 
-call s:hi(s:col(4, 1), [], "Type")
-call s:hi(s:col(4, 3), [], "StorageClass")
+call s:hi(s:col(4), [], "Statement")
+call s:hi(s:col(4), [], "Type")
 
-call s:hi(s:col(5, 1), [], "Statement")
-call s:hi(s:col(5, 1), [], "Structure")
-call s:hi(s:col(5, 1), [], "Operator")
-call s:hi(s:col(5, 3), [], "PreProc")
-call s:hi(s:col(5, 3), [], "Lsp_macro")
+call s:hi(s:col(5), [], "PreProc")
+call s:hi(s:col(5), [], "Lsp_macro")
+call s:hi(s:col(5), [], "Lsp_enumMember")
 
-call s:hi(s:col(0, 0), s:val(2), "Lsp_err")
-call s:hi(s:col(5, 0), s:val(2), "Lsp_wrn")
-call s:hi(s:col(3, 0), s:val(2), "Lsp_inf")
-call s:hi(s:col(2, 0), s:val(2), "Lsp_hnt")
+call s:hi([1.0 / 6 * 0, s:s, s:v], s:val(2), "Lsp_err")
+call s:hi([1.0 / 6 * 5, s:s, s:v], s:val(2), "Lsp_wrn")
+call s:hi([1.0 / 6 * 3, s:s, s:v], s:val(2), "Lsp_inf")
+call s:hi([1.0 / 6 * 2, s:s, s:v], s:val(2), "Lsp_hnt")
