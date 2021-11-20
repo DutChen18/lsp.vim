@@ -1,6 +1,8 @@
 function s:notify(client, message)
 	if a:message["method"] ==# "textDocument/publishDiagnostics"
 		let l:buf = g:lsp#buf#by_uri(a:message["params"]["uri"])
+		let l:version = a:message["params"]["version"]
+		if l:version != getbufvar(l:buf, "changedtick") | return | endif
 		if !has_key(a:client["buffers"], l:buf) | return | endif
 		let l:diag = a:message["params"]["diagnostics"]
 		let a:client["buffers"][l:buf]["diagnostics"] = l:diag

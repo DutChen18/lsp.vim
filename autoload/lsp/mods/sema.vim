@@ -1,8 +1,7 @@
 let s:props = []
 
-function s:callback(client, buf, message)
-	let l:version = a:client["buffers"][a:buf]["version"]
-	if l:version != getbufvar(a:buf, "changedtick") | return | endif
+function s:callback(client, buf, version, message)
+	if a:version != getbufvar(a:buf, "changedtick") | return | endif
 	let [l:l, l:c] = [1, 1]
 	let l:caps = a:client["capabilities"]["semanticTokensProvider"]
 	call s:buf_close(a:client, a:buf)
@@ -33,8 +32,9 @@ function s:buf_change(client, buf)
 		\ "method": "textDocument/semanticTokens/full",
 		\ "params": {
 			\ "textDocument": { "uri": g:lsp#buf#to_uri(a:buf) }}}
+	let l:version = getbufvar(a:buf, "changedtick")
 	call g:lsp#client#send(a:client, l:message, {
-		\ "callback": function("s:callback", [a:client, a:buf]) })
+		\ "callback": function("s:callback", [a:client, a:buf, l:version]) })
 endfunction
 
 let g:lsp#mods#sema#obj = {

@@ -7,7 +7,7 @@ function s:diag(client, buf, diag)
 			\ "col": l:diag["range"]["start"]["character"] + 1,
 			\ "text": l:diag["message"] })
 	endfor
-	call g:lsp#loclist#set(bufwinnr(a:buf), "diag", l:loclist)
+	call g:lsp#loclist#set(a:buf, "diag", l:loclist)
 endfunction
 
 let g:lsp#mods#diag_msg#obj = {
