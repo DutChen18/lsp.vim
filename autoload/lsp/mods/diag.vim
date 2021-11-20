@@ -1,9 +1,3 @@
-call sign_define("lsp_err", { "text": "EE", "texthl": "Lsp_Err" })
-call sign_define("lsp_wrn", { "text": "WW", "texthl": "Lsp_Wrn" })
-call sign_define("lsp_inf", { "text": "II", "texthl": "Lsp_Inf" })
-call sign_define("lsp_hnt", { "text": "HH", "texthl": "Lsp_Hnt" })
-let s:signs = ["lsp_err", "lsp_wrn", "lsp_inf", "lsp_hnt"]
-
 function s:notify(client, message)
 	if a:message["method"] ==# "textDocument/publishDiagnostics"
 		let l:buf = g:lsp#buf#by_uri(a:message["params"]["uri"])
