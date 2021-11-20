@@ -16,8 +16,7 @@ function s:getcol(buf, lnum, col)
 	return l:col
 endfunction
 
-function s:callback(buf, version, path, data)
-	call delete(a:path, "rf")
+function s:callback(buf, version, data)
 	if a:version != getbufvar(a:buf, "changedtick") | return | endif
 	call sign_unplace("norm", { "buffer": a:buf })
 	let l:loclist = []
@@ -43,15 +42,19 @@ endfunction
 
 function s:norm(client, buf)
 	let l:dpath = tempname()
-	call mkdir(l:dpath)
 	let l:fpath = l:dpath . "/" . expand("#" . a:buf . ":t")
-	echo l:fpath
-	call writefile(getbufline(a:buf, 1, "$"), l:fpath)
-	let l:mode = { "command": ["norminette", l:fpath] }
+	let l:mode = { "command": ["/bin/sh", "-c",
+		\ "mkdir " . l:dpath . "; " .
+		\ "cat > " . l:fpath . "; " .
+		\ "norminette " . l:fpath . "; " .
+		\ "rm -r " . l:dpath] }
 	let l:version = getbufvar(a:buf, "changedtick")
-	let l:channel = lsp#channel#open(l:mode, {
-		\ "callback": function("s:callback", [a:buf, l:version, l:dpath]),
+	let l:channel = g:lsp#channel#open(l:mode, {
+		\ "callback": function("s:callback", [a:buf, l:version]),
 		\ "close_cb": function("s:close_cb", [a:client, a:buf]) })
+	let l:lines = join(getbufline(a:buf, 1, "$") + [''], "\n")
+	call g:lsp#channel#send(l:channel, l:lines)
+	call g:lsp#channel#close_in(l:channel)
 endfunction
 
 let g:norm#obj = {

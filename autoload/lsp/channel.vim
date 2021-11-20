@@ -30,6 +30,10 @@ function g:lsp#channel#close(channel)
 	endif
 endfunction
 
+function g:lsp#channel#close_in(channel)
+	call ch_close_in(a:channel)
+endfunction
+
 function g:lsp#channel#send(channel, message)
 	call ch_sendraw(a:channel, a:message)
 endfunction
