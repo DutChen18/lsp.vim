@@ -11,7 +11,7 @@ function s:callback(buf, data)
 			\ "bufnr": a:buf,
 			\ "lnum": l:lnum,
 			\ "col": str2nr(l:fields[5]),
-			\ "text": join(l:fields[6:], " "),
+			\ "text": join(l:fields[5:], " "),
 			\ "valid": l:fields[2] })
 		call sign_place(0, "norm", "norm_err", a:buf,
 			\ { "lnum": l:lnum, "priority": -9 })
