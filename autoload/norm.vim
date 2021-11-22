@@ -22,14 +22,14 @@ function s:callback(buf, version, data)
 	let l:loclist = []
 	for l:error in split(a:data, "\n")
 		if l:error[:5] !=# "Error:" | continue | endif
-		let l:fields = split(l:error, " \\+")
+		let l:fields = split(l:error, "[ \\t]\\+")
 		let l:lnum = str2nr(l:fields[3])
 		let l:col = s:getcol(a:buf, l:lnum, str2nr(l:fields[5]) - 1) + 1
 		call add(l:loclist, {
 			\ "bufnr": a:buf,
 			\ "lnum": l:lnum,
 			\ "col": l:col,
-			\ "text": join(l:fields[5:], " ") })
+			\ "text": join(l:fields[6:], " ") })
 		call sign_place(0, "norm", "norm_err", a:buf,
 			\ { "lnum": l:lnum, "priority": -9 })
 	endfor
