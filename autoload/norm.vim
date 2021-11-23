@@ -40,7 +40,7 @@ function s:close_cb(client, buf)
 	return
 endfunction
 
-function s:norm(client, buf)
+function s:norm(client, buf, ...)
 	let l:dpath = tempname()
 	let l:fpath = l:dpath . "/" . expand("#" . a:buf . ":t")
 	let l:mode = { "command": ["/bin/sh", "-c",

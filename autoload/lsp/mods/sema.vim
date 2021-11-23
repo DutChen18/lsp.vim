@@ -27,7 +27,7 @@ function s:buf_close(client, buf)
 	endfor
 endfunction
 
-function s:buf_change(client, buf)
+function s:buf_change(client, buf, ...)
 	let l:message = {
 		\ "method": "textDocument/semanticTokens/full",
 		\ "params": {

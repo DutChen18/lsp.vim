@@ -7,7 +7,7 @@ function s:change(client, buf, new, version)
 			\ "version": a:version },
 		\ "contentChanges": l:changes }}
 	call g:lsp#client#send(a:client, l:message, {})
-	call g:lsp#client#call(a:client, "buf_change", a:buf)
+	call g:lsp#client#call(a:client, "buf_change", a:buf, l:changes)
 endfunction
 
 function s:callback(timer)
