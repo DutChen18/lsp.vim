@@ -5,7 +5,6 @@ function s:notify(client, message)
 		let l:buf = g:lsp#buf#by_uri(a:message["params"]["uri"])
 		let l:version = a:message["params"]["version"]
 		let s:map[l:buf]["last_received"] = l:version
-		echo s:map[l:buf]
 		if s:map[l:buf]["last_sent"] != s:map[l:buf]["last_received"]
 			return
 		endif
