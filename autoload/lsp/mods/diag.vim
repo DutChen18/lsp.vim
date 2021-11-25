@@ -3,6 +3,7 @@ let s:map = {}
 function s:notify(client, message)
 	if a:message["method"] ==# "textDocument/publishDiagnostics"
 		let l:buf = g:lsp#buf#by_uri(a:message["params"]["uri"])
+		if !has_key(a:message["params"], "version") | return | endif
 		let l:version = a:message["params"]["version"]
 		let s:map[l:buf]["last_received"] = l:version
 		if s:map[l:buf]["last_sent"] != s:map[l:buf]["last_received"]
