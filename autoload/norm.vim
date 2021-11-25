@@ -7,7 +7,7 @@ function s:getcol(buf, lnum, col)
 	let l:line = getbufline(a:buf, a:lnum)[0]
 	while l:vcol < a:col
 		if l:line[l:col] ==# "\t"
-			let l:vcol += 4
+			let l:vcol = (l:vcol + 4) / 4 * 4
 		else
 			let l:vcol += 1
 		endif
