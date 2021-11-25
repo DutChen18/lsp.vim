@@ -12,6 +12,7 @@ function s:notify(client, message)
 		if !has_key(a:client["buffers"], l:buf) | return | endif
 		let l:diag = a:message["params"]["diagnostics"]
 		let a:client["buffers"][l:buf]["diagnostics"] = l:diag
+		if getbufvar(l:buf, "changedtick") != l:version | return | endif
 		call lsp#client#call(a:client, "diag", l:buf, l:diag)
 	endif
 endfunction
