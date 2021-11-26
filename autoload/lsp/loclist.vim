@@ -22,6 +22,8 @@ function g:lsp#loclist#set(buf, ctx, list)
 	call prop_remove({ "type": "lsp_loc", "bufnr": a:buf, "all": 1 })
 	for l:loc in l:ll
 		if l:loc["lnum"] > l:last_line | continue | endif
+		let l:last_line_str = getbufline(a:buf, l:loc["lnum"])
+		if l:loc["col"] > len(l:last_line_str) | continue | endif
 		let l:p = { "length": 1, "bufnr": a:buf, "type": "lsp_loc" }
 		call prop_add(l:loc["lnum"], l:loc["col"], l:p)
 	endfor
