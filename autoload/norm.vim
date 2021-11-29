@@ -41,6 +41,7 @@ function s:close_cb(client, buf)
 endfunction
 
 function s:norm(client, buf, ...)
+	if getbufvar(a:buf, "&filetype") !=# "c" | return | endif
 	let l:dpath = tempname()
 	let l:fpath = l:dpath . "/" . expand("#" . a:buf . ":t")
 	let l:mode = { "command": ["/bin/sh", "-c",
