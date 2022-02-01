@@ -10,7 +10,7 @@ function s:change(client, buf, new, version)
 	call g:lsp#client#call(a:client, "buf_change", a:buf, l:changes)
 endfunction
 
-function s:callback(timer)
+function s:callback(...)
 	for l:client in g:lsp#util#with_mod(g:lsp#mods#change#obj)
 		for [l:buf, l:buffer] in items(l:client["buffers"])
 			let l:buf = str2nr(l:buf)
@@ -24,7 +24,7 @@ function s:callback(timer)
 	endfor	
 endfunction
 
-call timer_start(500, function("s:callback"), { "repeat": -1 })
+call listener_add(function("s:callback"))
 
 function s:buf_open(client, buf)
 	let l:buffer = a:client["buffers"][a:buf]
