@@ -73,6 +73,8 @@ call s:hi(s:col(0), [], "SpecialChar")
 call s:hi(s:col(1), [], "Function")
 call s:hi(s:col(1), [], "Lsp_function")
 
+call s:hi(s:col(1.5), [], "Lsp_namespace")
+
 call s:hi(s:col(2), [], "Lsp_type")
 call s:hi(s:col(2), [], "Lsp_class")
 call s:hi(s:col(2), [], "Lsp_enum")
