@@ -1,3 +1,5 @@
+set ttimeoutlen=20
+
 function lsp#clangd(...)
 	let l:options = get(a:000, 0, {})
 	let l:args = get(l:options, "args", [
@@ -17,7 +19,8 @@ function lsp#clangd(...)
 		\ g:lsp#mods#diag_sign#obj,
 		\ g:lsp#mods#diag_msg#obj,
 		\ g:lsp#mods#change#obj,
-		\ g:lsp#mods#sema#obj ])
+		\ g:lsp#mods#sema#obj,
+		\ g:lsp#mods#completion#obj ])
 	call extend(l:args, get(l:options, "extra_args", []))
 	call extend(l:flags, get(l:options, "extra_flags", []))
 	call extend(l:mods, get(l:options, "extra_mods", []))

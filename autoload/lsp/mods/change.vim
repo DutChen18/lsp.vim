@@ -21,7 +21,7 @@ function s:callback(timer)
 			let l:buffer["version"] = l:version
 			let l:buffer["text"] = l:new
 		endfor
-	endfor	
+	endfor
 endfunction
 
 call timer_start(500, function("s:callback"), { "repeat": -1 })
