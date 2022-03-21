@@ -15,3 +15,10 @@ function g:lsp#edit#edit(buf, edit)
 	let l:col = len(l:text[len(l:text) - 1]) - len(l:end) + 1
 	call setcursorcharpos(l:line, l:col)
 endfunction
+
+function g:lsp#edit#goto(goto)
+	execute "e " . a:goto["uri"]
+	let l:line = a:goto["range"]["start"]["line"] + 1
+	let l:col = a:goto["range"]["start"]["character"] + 1
+	call setcursorcharpos(l:line, l:col)
+endfunction

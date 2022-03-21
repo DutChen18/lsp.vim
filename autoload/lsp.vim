@@ -20,7 +20,8 @@ function lsp#clangd(...)
 		\ g:lsp#mods#diag_msg#obj,
 		\ g:lsp#mods#change#obj,
 		\ g:lsp#mods#sema#obj,
-		\ g:lsp#mods#completion#obj ])
+		\ g:lsp#mods#completion#obj,
+		\ g:lsp#mods#goto#obj ])
 	call extend(l:args, get(l:options, "extra_args", []))
 	call extend(l:flags, get(l:options, "extra_flags", []))
 	call extend(l:mods, get(l:options, "extra_mods", []))
@@ -30,4 +31,9 @@ function lsp#clangd(...)
 		\ "channel": { "command": l:args },
 		\ "init": { "fallbackFlags": l:flags },
 		\ "mods": l:mods })
+endfunction
+
+function lsp#call(method)
+	call g:lsp#client#call(g:lsp#client, a:method)
+	return "\<Ignore>"
 endfunction
