@@ -12,7 +12,7 @@ function s:callback(buf, client, message)
 			call add(l:items, l:item["label"])
 		endfor
 		if len(l:items) != 0
-			let l:id = popup_atcursor(l:items, {
+			call g:lsp#popup#atcursor(l:items, {
 				\ "filter": "popup_filter_menu",
 				\ "cursorline": 1,
 				\ "mapping": 0,

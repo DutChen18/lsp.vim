@@ -21,6 +21,7 @@ function lsp#clangd(...)
 		\ g:lsp#mods#change#obj,
 		\ g:lsp#mods#sema#obj,
 		\ g:lsp#mods#completion#obj,
+		\ g:lsp#mods#signature#obj,
 		\ g:lsp#mods#goto#obj ])
 	call extend(l:args, get(l:options, "extra_args", []))
 	call extend(l:flags, get(l:options, "extra_flags", []))
