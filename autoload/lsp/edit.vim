@@ -17,7 +17,7 @@ function g:lsp#edit#edit(buf, edit)
 endfunction
 
 function g:lsp#edit#goto(goto)
-	execute "e " . a:goto["uri"]
+	execute "confirm e " . a:goto["uri"]
 	let l:line = a:goto["range"]["start"]["line"] + 1
 	let l:col = a:goto["range"]["start"]["character"] + 1
 	call setcursorcharpos(l:line, l:col)
