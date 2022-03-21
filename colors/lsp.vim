@@ -95,3 +95,8 @@ call s:hi([1.0 / 6 * 0, s:s, s:v], s:val(2), "Lsp_err")
 call s:hi([1.0 / 6 * 5, s:s, s:v], s:val(2), "Lsp_wrn")
 call s:hi([1.0 / 6 * 3, s:s, s:v], s:val(2), "Lsp_inf")
 call s:hi([1.0 / 6 * 2, s:s, s:v], s:val(2), "Lsp_hnt")
+
+call s:hi([], s:val(2), "Pmenu")
+call s:hi([], s:val(4), "PmenuSel")
+call s:hi([], s:val(4), "PmenuSbar")
+call s:hi([], s:val(8), "PmenuThumb")
