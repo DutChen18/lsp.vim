@@ -1,5 +1,8 @@
 function s:callback(options, ...)
-	call a:options["callback"](a:2)
+	try
+		call a:options["callback"](a:2)
+	catch
+	endtry
 endfunction
 
 function s:close_cb(options, ...)
